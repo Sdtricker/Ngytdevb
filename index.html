@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Tap Animation</title>
+  <style>
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 400px;
+      margin: 50px auto;
+      background: linear-gradient(145deg, #FFD700, #FFEC8B);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      color: black;
+    }
+
+    .coin-section {
+      position: relative;
+    }
+
+    .coin {
+      width: 150px;
+      height: 150px;
+      background-image: url('https://cdn.glitch.global/d15f766a-ac8c-42bb-a4df-84072196794e/Picsart_24-09-15_16-31-09-188.png?v=1726398159767'); /* Image Link */
+      background-size: cover;
+      margin: 20px auto;
+      cursor: pointer;
+    }
+
+    .gold-text {
+      font-size: 2.5em;
+    }
+
+    .stats {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .link-item {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      font-size: 1.5em;
+      background: #FFD700;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .link-item:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Animation texts */
+    .coin-add, .energy-subtract {
+      position: absolute;
+      font-size: 1.5em;
+      opacity: 0;
+      animation: riseUp 1s forwards;
+    }
+
+    .coin-add {
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: lime;
+    }
+
+    .energy-subtract {
+      top: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: red;
+    }
+
+    /* Animation keyframes */
+    @keyframes riseUp {
+      0% {
+        transform: translate(-50%, 20px);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -40px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="coin-section">
+      <div class="coin" id="coin" onclick="handleTap()"></div> <!-- Coin Tap -->
+      <div id="coinAddText" class="coin-add">+12</div> <!-- +12 Animation -->
+      <div id="energySubtractText" class="energy-subtract">-3</div> <!-- -3 Animation -->
+      <div class="gold-text"><span id="coinValue">42,857,775</span> 🏆 Gold</div>
+    </div>
+
+    <div class="stats">
+      ⚡ <span id="energyValue">2549</span> / 6500
+    </div>
+
+    <!-- Links for Frens, Earn, Boost -->
+    <div class="links">
+      <a href="https://t.me/NGYT777GG" class="link-item" target="_blank">🧸 Frens</a>
+      <a href="https://t.me/NGYT777GG" class="link-item" target="_blank">💰 Earn</a>
+      <a href="https://t.me/NGYT777GG" class="link-item" target="_blank">🚀 Boost</a>
+    </div>
+
+  </div>
+
+  <script>
+    let coinValue = 42857775;
+    let energyValue = 2549;
+
+    function handleTap() {
+      // Update coin value (+12)
+      coinValue += 12;
+      document.getElementById('coinValue').textContent = coinValue;
+
+      // Update energy value (-3)
+      if (energyValue >= 3) {
+        energyValue -= 3;
+      } else {
+        energyValue = 0;
+      }
+      document.getElementById('energyValue').textContent = energyValue;
+
+      // Play the +12 and -3 animations
+      const coinAddText = document.getElementById('coinAddText');
+      const energySubtractText = document.getElementById('energySubtractText');
+
+      // Reset animation by re-adding the class
+      coinAddText.style.animation = 'none';
+      energySubtractText.style.animation = 'none';
+
+      // Trigger reflow to restart animation
+      void coinAddText.offsetWidth;
+      void energySubtractText.offsetWidth;
+
+      // Restart the animations
+      coinAddText.style.animation = 'riseUp 1s forwards';
+      energySubtractText.style.animation = 'riseUp 1s forwards';
+    }
+  </script>
+
+</body>
+</html>
